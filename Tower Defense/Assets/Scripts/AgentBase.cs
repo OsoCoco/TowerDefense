@@ -14,8 +14,23 @@ public class AgentBase: MonoBehaviour
     public float maxVelocity, maxForce, maxSpeed,maxSeeAhead,maxAvoidForce,mass, slowingRadius, circleDistance, circleRadius;
     [HideInInspector]
     public float distance;
-    
-    
+
+    /*public AgentBase(AgentBase agent)
+    {
+        velocity = agent.velocity;
+        desiredVelocity = agent.desiredVelocity;
+        this.target = agent.target;
+        this.agentPos.position = agent.agentPos.position;
+        this.s = agent.s;
+        maxVelocity = agent.maxVelocity;
+        this.maxForce = agent.maxForce;
+        this.maxSpeed = agent.maxSpeed;
+        maxSeeAhead = agent.maxSeeAhead;
+        maxAvoidForce = agent.maxAvoidForce;
+        mass = agent.mass;
+        distance = agent.distance;
+        slowingRadius = agent.slowingRadius;
+    }*/
     
     //
 

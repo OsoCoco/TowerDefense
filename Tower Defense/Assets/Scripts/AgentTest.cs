@@ -25,15 +25,17 @@ public class AgentTest: AgentBase
         //myBehaviour.Flee();
 
 
-        myBehaviour.Seek();
+        //myBehaviour.Seek();
         //myBehaviour.Arrival();
         
+
         /*
         if (player)
             myBehaviour.Pursuit();
-        else
+        else 
             myBehaviour.Evade();
         */
+
 
         //myBehaviour.Wander();
     }

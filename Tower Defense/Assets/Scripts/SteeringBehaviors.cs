@@ -27,8 +27,21 @@ public class SteeringBehaviors
         s = agent.desiredVelocity - agent.velocity;
         return s;
     }
+    Vector2 SeekBehavior(Vector2 target)
+    {
+        if (agent == null)
+        {
+            Debug.Log("NO HAY AGENTE");
+            return Vector2.zero;
+        }
 
-     Vector2 FleeBehavior(AgentBase target)
+        agent.desiredVelocity = (target - (Vector2)agent.agentPos.position).normalized * agent.maxVelocity;
+        Vector2 s;
+        s = agent.desiredVelocity - agent.velocity;
+        return s;
+    }
+
+    Vector2 FleeBehavior(AgentBase target)
     {
         if (agent == null)
         {
@@ -37,6 +50,18 @@ public class SteeringBehaviors
         }
 
         agent.desiredVelocity = (agent.agentPos.position - target.agentPos.position ).normalized * agent.maxVelocity;
+        agent.s = agent.desiredVelocity - agent.velocity;
+        return agent.s;
+    }
+    Vector2 FleeBehavior(Vector2 target)
+    {
+        if (agent == null)
+        {
+            Debug.Log("NO HAY AGENTE");
+            return Vector2.zero;
+        }
+
+        agent.desiredVelocity = ((Vector2)agent.agentPos.position - target).normalized * agent.maxVelocity;
         agent.s = agent.desiredVelocity - agent.velocity;
         return agent.s;
     }
@@ -68,7 +93,7 @@ public class SteeringBehaviors
 
         wheel += (Vector2)agent.agentPos.position;
 
-        Vector2 randDir = new Vector2(Random.Range(-1,1),Random.Range(-1,1));
+        Vector2 randDir = new Vector2(Random.Range(-1.0f,1.1f),Random.Range(-1.0f,1.1f));
 
         Debug.Log(randDir);
 
@@ -88,9 +113,8 @@ public class SteeringBehaviors
 
         var futurePosition = (Vector2)target.agentPos.position + target.velocity * T;
 
-        return SeekBehavior(target);
-        
-
+        return SeekBehavior(futurePosition);
+       
     }
 
     Vector2 EvadeBehavior(AgentBase target)
@@ -99,10 +123,8 @@ public class SteeringBehaviors
         var T = distance.magnitude / agent.maxVelocity;
 
         var futurePosition = (Vector2)target.agentPos.position + target.velocity * T;
-
-        return FleeBehavior(target);
+        return FleeBehavior(futurePosition);
        
-
     }
 
 
@@ -235,6 +257,7 @@ public class SteeringBehaviors
             Debug.Log("NO HAY AGENTE");
             return;
         }
+
         Vector2 steering = Vector2.zero;
         steering += sVector;
         steering += CollisionAvoidanceBehavior(agent);
