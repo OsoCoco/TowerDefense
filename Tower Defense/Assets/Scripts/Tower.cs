@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,17 +9,52 @@ public class Tower : MonoBehaviour
     public float attackRange, attackDamage;
     public LayerMask mask;
 
-    public GameObject go;
+    public Collider2D[] enemies;
+    public List<int> prio;
+    
+    public GameObject target;
+    //public Agent agentToAttack;
 
     private void Update()
     {
-        Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position,attackRange,mask);
+       enemies = Physics2D.OverlapCircleAll(transform.position,attackRange,mask);
 
-       
+        target = ObjectToAttack(enemies);
     }
 
-    void TargetSelection(Agent agent)
+    GameObject ObjectToAttack(Collider2D[] col)
     {
+        GameObject objectToAttack;
 
+        if (col != null)
+        {
+            prio = new List<int>();
+
+            for (int i = 0; i < col.Length; i++)
+            {
+                prio.Add(col[i].GetComponent<Agent>().priority);
+            }
+
+            if (prio.Count != 0)
+            {
+                int maxPrio = prio.Max();
+
+                Debug.Log("Max Prio " + maxPrio);
+
+                int index = prio.IndexOf(maxPrio);
+                Debug.Log("Index " + index);
+
+                objectToAttack = col[index].gameObject;
+            }
+            else
+                objectToAttack = null;
+        }
+        else
+            objectToAttack = null;
+       
+
+        return objectToAttack;
     }
+    
+    
 }
