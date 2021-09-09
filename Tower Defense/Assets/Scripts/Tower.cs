@@ -10,21 +10,20 @@ public class Tower : MonoBehaviour
     public LayerMask mask;
 
     public Collider2D[] enemies;
-    public List<int> prio;
+    List<int> prio;
     
-    public GameObject target;
+    public Agent target;
     //public Agent agentToAttack;
 
     private void Update()
     {
        enemies = Physics2D.OverlapCircleAll(transform.position,attackRange,mask);
-
-        target = ObjectToAttack(enemies);
+       target = ObjectToAttack(enemies);
     }
 
-    GameObject ObjectToAttack(Collider2D[] col)
+    Agent ObjectToAttack(Collider2D[] col)
     {
-        GameObject objectToAttack;
+        Agent objectToAttack;
 
         if (col != null)
         {
@@ -44,7 +43,7 @@ public class Tower : MonoBehaviour
                 int index = prio.IndexOf(maxPrio);
                 Debug.Log("Index " + index);
 
-                objectToAttack = col[index].gameObject;
+                objectToAttack = col[index].gameObject.GetComponent<Agent>();
             }
             else
                 objectToAttack = null;
