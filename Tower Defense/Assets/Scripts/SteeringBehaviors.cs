@@ -6,7 +6,6 @@ public class SteeringBehaviors
 {
     AgentBase agent;
 
-    
     public SteeringBehaviors(AgentBase agent)
     {
         this.agent = agent;
@@ -36,6 +35,19 @@ public class SteeringBehaviors
         }
 
         agent.desiredVelocity = (target - (Vector2)agent.agentPos.position).normalized * agent.maxVelocity;
+        Vector2 s;
+        s = agent.desiredVelocity - agent.velocity;
+        return s;
+    }
+    Vector2 SeekBehavior(Transform target)
+    {
+        if (agent == null)
+        {
+            Debug.Log("NO HAY AGENTE");
+            return Vector2.zero;
+        }
+
+        agent.desiredVelocity = ((Vector2)target.position - (Vector2)agent.agentPos.position).normalized * agent.maxVelocity;
         Vector2 s;
         s = agent.desiredVelocity - agent.velocity;
         return s;

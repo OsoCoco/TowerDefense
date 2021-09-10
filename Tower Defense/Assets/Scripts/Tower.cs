@@ -5,8 +5,22 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
-    public int life;
+    public GameObject[] agentsToSpawn;
+
+    public bool isPlayer;
+    public float life;
     public float attackRange, attackDamage;
+    public float attackRate;
+
+    public int recursos;
+    public float spawnRate;
+    float nextAgent;
+    public int agentLimit;
+
+
+    [SerializeField] int actualAgents;
+
+    float nextAttack;
     public LayerMask mask;
 
     public Collider2D[] enemies;
@@ -19,6 +33,21 @@ public class Tower : MonoBehaviour
     {
        enemies = Physics2D.OverlapCircleAll(transform.position,attackRange,mask);
        target = ObjectToAttack(enemies);
+
+        if(target != null && Time.time > nextAttack)
+        {
+            nextAttack = Time.time + attackRate;
+            Attack(target);
+        }
+
+       if(recursos > 0 && actualAgents < agentLimit && Time.time > nextAgent)
+       {
+            nextAgent = Time.time + spawnRate;
+            SpawnAgent();
+            actualAgents++;
+       }
+      
+
     }
 
     Agent ObjectToAttack(Collider2D[] col)
@@ -50,10 +79,38 @@ public class Tower : MonoBehaviour
         }
         else
             objectToAttack = null;
-       
 
-        return objectToAttack;
+        if(objectToAttack != null)
+        {
+            if (objectToAttack.isPlayer)
+                return objectToAttack;
+            else
+                return null;
+        }
+        else
+            return null;
     }
     
-    
+    void Attack(Agent t)
+    {
+      if(t != null)  
+        t.life -= attackDamage;
+      
+    }
+
+    void SpawnAgent()
+    {
+        GameObject temp = agentsToSpawn[Random.Range(0, agentsToSpawn.Length)];
+
+        Agent agenTemp = temp.GetComponent<Agent>();
+
+        recursos -= agenTemp.costo;
+        agenTemp.isPlayer = false;
+        
+        Instantiate(temp, transform.position, Quaternion.identity);
+    }
+
+        //return agentsToSpawn[Random.Range(0, agentsToSpawn.Length)];
 }
+
+   
