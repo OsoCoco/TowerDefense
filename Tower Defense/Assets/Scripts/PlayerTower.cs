@@ -3,10 +3,8 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tower : MonoBehaviour
+public class PlayerTower : MonoBehaviour
 {
-    public GameObject[] agentsToSpawn;
-
     public float life;
     public float attackRange, attackDamage;
     public float attackRate;
@@ -24,31 +22,20 @@ public class Tower : MonoBehaviour
 
     public Collider2D[] enemies;
     List<int> prio;
-    
+
     public Agent target;
-    //public Agent agentToAttack;
 
     private void Update()
     {
-       enemies = Physics2D.OverlapCircleAll(transform.position,attackRange,mask);
-       target = ObjectToAttack(enemies);
+        enemies = Physics2D.OverlapCircleAll(transform.position, attackRange, mask);
+        target = ObjectToAttack(enemies);
 
-        if(target != null && Time.time > nextAttack)
+        if (target != null && Time.time > nextAttack)
         {
             nextAttack = Time.time + attackRate;
             Attack(target);
         }
-
-       if(recursos > 0 && actualAgents < agentLimit && Time.time > nextAgent)
-       {
-            nextAgent = Time.time + spawnRate;
-            SpawnAgent();
-            actualAgents++;
-       }
-      
-
     }
-
     Agent ObjectToAttack(Collider2D[] col)
     {
         Agent objectToAttack;
@@ -79,9 +66,9 @@ public class Tower : MonoBehaviour
         else
             objectToAttack = null;
 
-        if(objectToAttack != null)
+        if (objectToAttack != null)
         {
-            if (objectToAttack.isPlayer)
+            if (!objectToAttack.isPlayer)
                 return objectToAttack;
             else
                 return null;
@@ -89,27 +76,22 @@ public class Tower : MonoBehaviour
         else
             return null;
     }
-    
     void Attack(Agent t)
     {
-      if(t != null)  
-        t.life -= attackDamage;
-      
+        if (t != null)
+            t.life -= attackDamage;
+
     }
 
-    void SpawnAgent()
+    public void SpawnAgent(GameObject objectToSpawn)
     {
-        GameObject temp = agentsToSpawn[Random.Range(0, agentsToSpawn.Length)];
+        GameObject temp = objectToSpawn;
 
         Agent agenTemp = temp.GetComponent<Agent>();
 
         recursos -= agenTemp.costo;
-        agenTemp.isPlayer = false;
-        
+        agenTemp.isPlayer = true;
+
         Instantiate(temp, transform.position, Quaternion.identity);
     }
-
-        //return agentsToSpawn[Random.Range(0, agentsToSpawn.Length)];
 }
-
-   

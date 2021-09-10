@@ -8,7 +8,7 @@ public class AgentTest: AgentBase
 
     public bool player;
   
-    public AgentTest(Vector2 vel, Vector2 desVel, AgentBase target, Vector2 s, float maxVel, float maxForce, float maxSpeed, float m) : base(vel, desVel, target, s, maxVel, maxForce, maxSpeed, m)
+    public AgentTest(Vector2 vel, Vector2 desVel, Transform target, Vector2 s, float maxVel, float maxForce, float maxSpeed, float m) : base(vel, desVel, target, s, maxVel, maxForce, maxSpeed, m)
     {
        
     }

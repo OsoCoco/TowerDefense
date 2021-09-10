@@ -11,9 +11,8 @@ public class SteeringBehaviors
         this.agent = agent;
     }
 
- 
     #region Behaviours
-    Vector2 SeekBehavior(AgentBase target)
+    /*Vector2 SeekBehavior(AgentBase target)
     {
         if (agent == null)
         {
@@ -25,7 +24,7 @@ public class SteeringBehaviors
         Vector2 s;
         s = agent.desiredVelocity - agent.velocity;
         return s;
-    }
+    }*/
     Vector2 SeekBehavior(Vector2 target)
     {
         if (agent == null)
@@ -82,7 +81,7 @@ public class SteeringBehaviors
     {
         
         Vector2 sVector;
-        agent.desiredVelocity = agent.target.agentPos.position - agent.agentPos.position;
+        agent.desiredVelocity = agent.target.position - agent.agentPos.position;
         distance = agent.desiredVelocity.magnitude;
 
         if (distance < slowingRadius)
@@ -227,13 +226,13 @@ public class SteeringBehaviors
     #region BehavioursCalls
     public void Flee()
     {
-        if (agent != null)
-            Steering(FleeBehavior(agent.target));
+        if (agent != null) { }
+            //Steering(FleeBehavior(agent.target));
     }
-    public void Seek()
+    public void Seek(Transform target)
     {   
         if(agent!=null)
-            Steering(SeekBehavior(agent.target));
+            Steering(SeekBehavior(target));
     }
 
     public void Arrival()
@@ -248,16 +247,17 @@ public class SteeringBehaviors
             Steering(WanderBehavior(agent.circleDistance,agent.circleRadius));
 
     }
+
     public void Pursuit()
     {
-        if (agent != null)
-            Steering(PursuitBehavior( agent.target));
+        if (agent != null) { }
+            //Steering(PursuitBehavior( agent.target));
 
     }
     public void Evade()
     {
-        if (agent != null)
-            Steering(EvadeBehavior(agent.target));
+        if (agent != null) { }
+            //Steering(EvadeBehavior(agent.target));
 
     }
     #endregion

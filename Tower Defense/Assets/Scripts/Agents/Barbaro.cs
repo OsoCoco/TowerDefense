@@ -4,7 +4,7 @@ public class Barbaro : Agent
 {
     public State myState;
 
-    public Barbaro(Vector2 vel, Vector2 desVel, AgentBase targetAg, Vector2 s, float maxVel, float maxForce, float maxSpeed, float m) : base(vel, desVel, targetAg, s, maxVel, maxForce, maxSpeed, m) { }
+    public Barbaro(Vector2 vel, Vector2 desVel, Transform targetAg, Vector2 s, float maxVel, float maxForce, float maxSpeed, float m) : base(vel, desVel, targetAg, s, maxVel, maxForce, maxSpeed, m) { }
     private void Start()
     {
         myState = State.WANDERING;

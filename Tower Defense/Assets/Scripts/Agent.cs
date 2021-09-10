@@ -13,7 +13,7 @@ public class Agent : AgentBase
 {
     //public AgentBase agent;
 
-    public Agent(Vector2 vel, Vector2 desVel, AgentBase targetAg, Vector2 s, float maxVel, float maxForce, float maxSpeed, float m):base(vel,desVel,targetAg,s,maxVel,maxForce,maxSpeed,m){}
+    public Agent(Vector2 vel, Vector2 desVel, Transform targetAg, Vector2 s, float maxVel, float maxForce, float maxSpeed, float m):base(vel,desVel,targetAg,s,maxVel,maxForce,maxSpeed,m){}
     public SteeringBehaviors behaviors;
 
     public int priority;
@@ -35,6 +35,11 @@ public class Agent : AgentBase
         {
             Destroy(this.gameObject);
         }
+    }
+
+    void UpdateTarget(Transform newTarget)
+    {
+       target = newTarget;
     }
 
     

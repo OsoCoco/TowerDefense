@@ -6,7 +6,7 @@ using UnityEngine;
 public class AgentBase: MonoBehaviour
 {
     //Steering Variables
-    public AgentBase target;
+    public Transform target;
     [HideInInspector]
     public Transform agentPos;
     [HideInInspector]
@@ -35,7 +35,7 @@ public class AgentBase: MonoBehaviour
     //
 
     //Constructor
-    public AgentBase(Vector2 vel, Vector2 desVel, AgentBase targetAg, Vector2 s, float maxVel, float maxForce, float maxSpeed, float m,float d = 0,
+    public AgentBase(Vector2 vel, Vector2 desVel, Transform targetAg, Vector2 s, float maxVel, float maxForce, float maxSpeed, float m,float d = 0,
                        float sR = 0, float circleDistance= 0, float circleRadius = 0,float mSA = 0,float mAF = 0)
     {
         velocity = vel;
@@ -52,10 +52,6 @@ public class AgentBase: MonoBehaviour
         distance = d;
         slowingRadius = sR;
     }
-
- 
-
-   
 
     private void Awake()
     {
