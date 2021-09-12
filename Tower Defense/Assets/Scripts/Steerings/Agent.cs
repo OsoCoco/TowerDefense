@@ -17,8 +17,6 @@ public class Agent : AgentBase
     public SteeringBehaviors behaviors;
 
     public int priority;
-    public int costo;
-    public float life;
 
     [HideInInspector]
     public bool isPlayer;
@@ -31,10 +29,6 @@ public class Agent : AgentBase
 
     private void Update()
     {
-        if(life <= 0)
-        {
-            Destroy(this.gameObject);
-        }
     }
 
     void UpdateTarget(Transform newTarget)

@@ -5,6 +5,30 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
+    [Header("Tower Variables", order = 0)]
+    public int HP;
+    public int damage;
+    public float speedDamage;
+    public float rangePerception;
+    public float rangeAttack;
+
+    [Header("Colliders", order = 1)]
+    public CircleCollider2D perception;
+    public CircleCollider2D range;
+
+    [Header("Tower Targets", order = 1)]
+    public Unit actualTarget;
+    public List<Unit> targets;
+
+    //IMPORTANTEEEEEEEEEEE AGREGAR IDENTIFICADOR SI PERTENECEN AL JUGADOR O LA IA Y CUALES SON SUS ENEMIGOS, ESTE SCRIPT SOLO SERVIRA PARA LA BASE (OSEA ATACAR UNIDADES Y PARA CAMBIAR EL ESTADO DEL JUEGO EN CASO DE QUE SU VIDA LLEGE A 0)
+    //ATACA A LA UNIDAD CON MENOR VIDA
+
+    private void attack()
+    {
+
+    }
+
+    /*
     public GameObject[] agentsToSpawn;
 
     public float life;
@@ -36,13 +60,13 @@ public class Tower : MonoBehaviour
         if(target != null && Time.time > nextAttack)
         {
             nextAttack = Time.time + attackRate;
-            Attack(target);
+            //Attack(target);
         }
 
        if(recursos > 0 && actualAgents < agentLimit && Time.time > nextAgent)
        {
             nextAgent = Time.time + spawnRate;
-            SpawnAgent();
+            //SpawnAgent();
             actualAgents++;
        }
       
@@ -90,14 +114,14 @@ public class Tower : MonoBehaviour
             return null;
     }
     
-    void Attack(Agent t)
+    /*void Attack(Agent t)
     {
       if(t != null)  
         t.life -= attackDamage;
       
-    }
+    }*/
 
-    void SpawnAgent()
+    /*void SpawnAgent()
     {
         GameObject temp = agentsToSpawn[Random.Range(0, agentsToSpawn.Length)];
 
@@ -107,9 +131,9 @@ public class Tower : MonoBehaviour
         agenTemp.isPlayer = false;
         
         Instantiate(temp, transform.position, Quaternion.identity);
-    }
+    }*/
 
-        //return agentsToSpawn[Random.Range(0, agentsToSpawn.Length)];
+    //return agentsToSpawn[Random.Range(0, agentsToSpawn.Length)];
 }
 
-   
+

@@ -2,15 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-enum GameState
+public enum GameState
 {
-    START,
+    //START,
+    PLAYING,
     PLAYERWIN,
     AIWIN,
 }
 public class GameManager : MonoBehaviour
 {
-    private static GameManager _instance;
+    //EN ESTE SCRIPT SOLO ES EL ARBRITO Y EL QUE DA LAS PAUTAS(ESTADOS) PARA QUE EL RESTO DE SCRIPTS HAGAN LO SUYO XD
+    public PlayerManager player;
+    public IAManager intel;
+
+    public GameState actualState;
+
+    //HAY QUE CHECAR EL ESTADO DE LAS TORRES DE LA IA Y DEL JUGADOR PARA CAMBIAR DE ESTADO
+
+/*    private static GameManager _instance;
 
     public GameObject towerAI;
     public GameObject towerPlayer;
@@ -37,5 +46,5 @@ public class GameManager : MonoBehaviour
         if (_instance != null)
             DontDestroyOnLoad(this);
 
-    }
+    }/*/
 }

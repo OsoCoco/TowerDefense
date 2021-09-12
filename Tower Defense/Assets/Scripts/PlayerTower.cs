@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerTower : MonoBehaviour
 {
+    //ESTE SCRIPT YA NO HACE FALTA :c
     public float life;
     public float attackRange, attackDamage;
     public float attackRate;
@@ -33,7 +34,7 @@ public class PlayerTower : MonoBehaviour
         if (target != null && Time.time > nextAttack)
         {
             nextAttack = Time.time + attackRate;
-            Attack(target);
+            //Attack(target);
         }
     }
     Agent ObjectToAttack(Collider2D[] col)
@@ -76,14 +77,14 @@ public class PlayerTower : MonoBehaviour
         else
             return null;
     }
-    void Attack(Agent t)
+ /*   void Attack(Agent t)
     {
         if (t != null)
             t.life -= attackDamage;
 
-    }
+    }*/
 
-    public void SpawnAgent(GameObject objectToSpawn)
+   /* public void SpawnAgent(GameObject objectToSpawn)
     {
         GameObject temp = objectToSpawn;
 
@@ -93,5 +94,5 @@ public class PlayerTower : MonoBehaviour
         agenTemp.isPlayer = true;
 
         Instantiate(temp, transform.position, Quaternion.identity);
-    }
+    }*/
 }

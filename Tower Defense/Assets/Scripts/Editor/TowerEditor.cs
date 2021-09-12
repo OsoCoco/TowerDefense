@@ -12,6 +12,6 @@ public class TowerEditor : Editor
 
         
         Handles.color = Color.yellow;
-        Handles.DrawWireDisc(tower.gameObject.transform.position, tower.transform.forward, tower.attackRange);
+        Handles.DrawWireDisc(tower.gameObject.transform.position, tower.transform.forward, tower.rangeAttack);
     }
 }
