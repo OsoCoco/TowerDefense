@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
+    //GameManager instance = GameManager.Instance;
     //EN ESTE SCRIPT MANEJAMOS TODO LO QUE PUEDE MANEJAR EL JUGADOR Y TODO LO QUE TENGA QUE VER CON ESTADOS DEL JUGADOR
     [Header("Variables de Recursos", order = 0)]
     public int maxGold;
@@ -12,7 +13,7 @@ public class PlayerManager : MonoBehaviour
     public float goldTime; //CUANTO TIEMPO TARDA EN GENERAR ORO
     public int goldGeneration; //CUANTO ORO GENERA
 
-    [Header("Prefabs de Unidades", order =1)] //LOS PREFABS DE TODAS LAS UNIDADS
+    [Header("Prefabs de Unidades", order =1)] //LOS PREFABS DE TODAS LAS UNIDADS  //SE PUEDE USAR UN ARREGLO PARA NO TENER TANTAS VARIABLES
     public GameObject meleePref;
     public GameObject rangePref;
     public GameObject kamikazePref;
@@ -47,7 +48,7 @@ public class PlayerManager : MonoBehaviour
 
     private void Awake()
     {
-        manager = FindObjectOfType<GameManager>();
+        manager = FindObjectOfType<GameManager>();   //ES MEJOR USAR EL SINGLETON YA QUE SOLO EXISTIRA UN GAME MANAGAER EN TODO EL JUEGO, IGUAL APLICA PARA TODOS LOS MANAGERS QUE TIENES PENSADOS
     }
 
     private void Start()
