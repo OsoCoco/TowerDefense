@@ -19,10 +19,10 @@ public class GameManager : MonoBehaviour
 
     //HAY QUE CHECAR EL ESTADO DE LAS TORRES DE LA IA Y DEL JUGADOR PARA CAMBIAR DE ESTADO
 
-/*    private static GameManager _instance;
+     private static GameManager _instance;
 
-    public GameObject towerAI;
-    public GameObject towerPlayer;
+    //public GameObject towerAI;
+    //public GameObject towerPlayer;
 
 
     public static GameManager Instance
@@ -46,5 +46,5 @@ public class GameManager : MonoBehaviour
         if (_instance != null)
             DontDestroyOnLoad(this);
 
-    }/*/
+    }
 }

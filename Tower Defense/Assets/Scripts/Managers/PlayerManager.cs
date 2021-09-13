@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : Tower
 {
     //GameManager instance = GameManager.Instance;
     //EN ESTE SCRIPT MANEJAMOS TODO LO QUE PUEDE MANEJAR EL JUGADOR Y TODO LO QUE TENGA QUE VER CON ESTADOS DEL JUGADOR
-    [Header("Variables de Recursos", order = 0)]
+    /*[Header("Variables de Recursos", order = 0)]
     public int maxGold;
     [HideInInspector]
     public int actualGold = 5;
@@ -45,21 +45,21 @@ public class PlayerManager : MonoBehaviour
     public Tower myBase;
 
     private GameManager manager;
-
+    */
     private void Awake()
     {
-        manager = FindObjectOfType<GameManager>();   //ES MEJOR USAR EL SINGLETON YA QUE SOLO EXISTIRA UN GAME MANAGAER EN TODO EL JUEGO, IGUAL APLICA PARA TODOS LOS MANAGERS QUE TIENES PENSADOS
+        //manager = FindObjectOfType<GameManager>();   //ES MEJOR USAR EL SINGLETON YA QUE SOLO EXISTIRA UN GAME MANAGAER EN TODO EL JUEGO, IGUAL APLICA PARA TODOS LOS MANAGERS QUE TIENES PENSADOS
     }
 
     private void Start()
     {
-        StartCoroutine(MiningGold(goldTime));
+        //StartCoroutine(MiningGold(goldTime));
     }
 
     #region Gold Functions
 
     //GENERAMOS X CANTIDAD DE ORO CADA X SEGUNDOS
-    private IEnumerator MiningGold(float time)
+    /*private IEnumerator MiningGold(float time)
     {
         while (manager.actualState == GameState.PLAYING)
         {
@@ -165,7 +165,7 @@ public class PlayerManager : MonoBehaviour
             actualGenerals += 1;
         }
     }
-
+    */
     #endregion
 
 }

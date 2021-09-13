@@ -123,6 +123,65 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &81392193
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 81392194}
+  - component: {fileID: 81392195}
+  m_Layer: 0
+  m_Name: AIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &81392194
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 81392193}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.7687757, y: 0.63002026, z: -0.56623334}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &81392195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 81392193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ddecddee39de0240886b566e5d7aaf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HP: 0
+  attackDamage: 0
+  attackRate: 0
+  attackRange: 0
+  maxGold: 0
+  maxAgents: 0
+  agentsToSpawn: []
+  maxMelees: 0
+  maxRanges: 0
+  maxKamikazes: 0
+  maxTanks: 0
+  maxBombers: 0
+  maxCannons: 0
+  maxGenerals: 0
+  maxMiners: 0
+  spwanPoints: []
 --- !u!1 &187248605
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,20 +277,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c98889f9e53f0a347ae58bc51f81f5c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agentsToSpawn: []
-  life: 0
-  attackRange: 2.5
+  HP: 0
   attackDamage: 0
   attackRate: 0
-  recursos: 0
-  spawnRate: 0
-  agentLimit: 0
-  actualAgents: 0
-  mask:
-    serializedVersion: 2
-    m_Bits: 64
-  enemies: []
-  target: {fileID: 0}
+  attackRange: 0
+  maxGold: 0
+  maxAgents: 0
+  agentsToSpawn: []
+  maxMelees: 0
+  maxRanges: 0
+  maxKamikazes: 0
+  maxTanks: 0
+  maxBombers: 0
+  maxCannons: 0
+  maxGenerals: 0
+  maxMiners: 0
+  spwanPoints: []
 --- !u!1 &440300389
 GameObject:
   m_ObjectHideFlags: 0
@@ -2410,8 +2471,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8d48211b72993848bb120a8ec3db6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerAI: {fileID: 0}
-  towerPlayer: {fileID: 0}
+  player: {fileID: 0}
+  intel: {fileID: 0}
+  actualState: 0
 --- !u!1 &878875759
 GameObject:
   m_ObjectHideFlags: 0
@@ -2507,22 +2569,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c98889f9e53f0a347ae58bc51f81f5c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agentsToSpawn:
-  - {fileID: 1046817954932252650, guid: 7e9547a9c2ed35b41884fbdbb92b32da, type: 3}
-  - {fileID: 3542597811384401564, guid: 5631f11874adbc94ba9a51061b89b136, type: 3}
-  life: 50
-  attackRange: 3
-  attackDamage: 2
-  attackRate: 1
-  recursos: 20
-  spawnRate: 4
-  agentLimit: 20
-  actualAgents: 0
-  mask:
-    serializedVersion: 2
-    m_Bits: 64
-  enemies: []
-  target: {fileID: 0}
+  HP: 0
+  attackDamage: 0
+  attackRate: 0
+  attackRange: 0
+  maxGold: 0
+  maxAgents: 0
+  agentsToSpawn: []
+  maxMelees: 0
+  maxRanges: 0
+  maxKamikazes: 0
+  maxTanks: 0
+  maxBombers: 0
+  maxCannons: 0
+  maxGenerals: 0
+  maxMiners: 0
+  spwanPoints: []
 --- !u!1 &1217457405
 GameObject:
   m_ObjectHideFlags: 0

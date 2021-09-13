@@ -2,19 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
- enum SpawnPoints 
-{ UP, DOWN}
+/* enum SpawnPoints 
+{ UP, DOWN}*/
 public class CardsManager : MonoBehaviour
 {
     [Header("Controlador del Jugador")]
     public PlayerManager player;
 
-    [Header("Spawn Points")]
-    [SerializeField]
-    private SpawnPoints spawn;
-    public Transform upSpawn; 
-    public Transform downSpawn;
+    public void SpawnUnit(GameObject objectToSpawn)
+    {
+        player.SpwanAgent(objectToSpawn, player.RandomSpawnPoint(player.spwanPoints));
+    }
+    //[Header("Spawn Points")]
+    //[SerializeField]
+    //private SpawnPoints spawn;
+    //public Transform upSpawn; 
+    //public Transform downSpawn;
 
+    /*
     [Header("Cannon SpawnPoints")]
     public Transform upCannon;
     public Transform downCannon;
@@ -22,10 +27,10 @@ public class CardsManager : MonoBehaviour
     [Header("Other SpawnPoints")]
     public Transform minerSpawn;
     public Transform generalSpawn;
-
+    */
 
     //CAMBIAMOS EL SPAWNPOINT DE LAS UNIDADES DEL JUGADOR
-    public void GoUp()
+    /*public void GoUp()
     {
         if (spawn != SpawnPoints.UP)
         {
@@ -40,9 +45,10 @@ public class CardsManager : MonoBehaviour
             spawn = SpawnPoints.DOWN;
         }
     }
-
+    */
     //INSTANCIAR A LAS UNIDADES (PREFABS)
     #region Spawn Units
+    /*
     public void SpawnMelee()
     {
         if (spawn == SpawnPoints.UP)
@@ -125,5 +131,6 @@ public class CardsManager : MonoBehaviour
     {
         player.GenGeneral(generalSpawn.position);
     }
+    */
     #endregion
 }

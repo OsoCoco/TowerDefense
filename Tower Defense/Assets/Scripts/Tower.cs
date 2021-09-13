@@ -7,25 +7,180 @@ public class Tower : MonoBehaviour
 {
     [Header("Tower Variables", order = 0)]
     public int HP;
-    public int damage;
-    public float speedDamage;
-    public float rangePerception;
-    public float rangeAttack;
+    public int attackDamage;
+    public float attackRate;
+    public float attackRange;
+    public float miningRate;
+    public int maxGold;
+    public int maxAgents;
+    public int goldPerRate;
 
-    [Header("Colliders", order = 1)]
-    public CircleCollider2D perception;
-    public CircleCollider2D range;
+    public int actualGold;
+    //public float rangePerception;
 
-    [Header("Tower Targets", order = 1)]
-    public Unit actualTarget;
-    public List<Unit> targets;
+    [Header("Lista de Agentes", order = 1)]
+    public GameObject[] agentsToSpawn;
 
+    [Header("Manejo Unidades", order = 2)]
+    public int maxMelees;
+    public int maxRanges;
+    public int maxKamikazes;
+    public int maxTanks;
+    public int maxBombers;
+    public int maxCannons;
+    public int maxGenerals;
+    public int maxMiners;
+
+    int actualMelees;
+    int actualRanges;
+    int actualKamikazes;
+    int actualTanks;
+    int actualBombers;
+    int actualCannons;
+    int actualGenerals;
+    int actualMiners;
+    int actualAgents;
+
+    [Header("Spawn Points", order = 3)]
+    public Transform[] spwanPoints;
+
+    GameManager manager = GameManager.Instance;
+
+    private void Awake()
+    {
+        actualGold = maxGold;
+    }
+    //string tagName;
+
+    /* 
+     [Header("Colliders", order = 4)]
+     public CircleCollider2D perception;
+     public CircleCollider2D range;
+
+     [Header("Tower Targets", order = 5)]
+     public Unit actualTarget;
+     public List<Unit> targets;
+
+     [Header("Units Spawn Points", order = 6)]
+     public Transform[] mineSpawnPoints;
+     public Transform[] unitsSpawnPoints;
+
+     [Header("")]
+    */
     //IMPORTANTEEEEEEEEEEE AGREGAR IDENTIFICADOR SI PERTENECEN AL JUGADOR O LA IA Y CUALES SON SUS ENEMIGOS, ESTE SCRIPT SOLO SERVIRA PARA LA BASE (OSEA ATACAR UNIDADES Y PARA CAMBIAR EL ESTADO DEL JUEGO EN CASO DE QUE SU VIDA LLEGE A 0)
     //ATACA A LA UNIDAD CON MENOR VIDA
 
-    private void attack()
+
+    public void Attack() //SE HARA UNA FUNCION BOOL QUE DETERMINE SI TIENE ALGO QUE ATACAR
     {
 
+    }
+
+    public void SpwanAgent(GameObject objectToSpawn,Transform spawnPoint)
+    {
+        string tagName = objectToSpawn.tag;
+        if(actualAgents < maxAgents || actualGold < maxGold)
+        {
+            switch (tagName)
+            {
+                case "Melee":
+                    if(actualMelees < maxMelees)
+                    {
+                        actualGold -= objectToSpawn.GetComponent<Unit>().cost;
+                        actualMelees++;
+                        Instantiate(objectToSpawn,spawnPoint.position,Quaternion.identity);
+                    }
+                    break;
+                case "Range":
+                    if (actualRanges < maxRanges)
+                    {
+                        actualGold -= objectToSpawn.GetComponent<Unit>().cost;
+                        actualRanges++;
+                        Instantiate(objectToSpawn, spawnPoint.position, Quaternion.identity);
+                    }
+                    break;
+                case "Kamikaze":
+                    if (actualKamikazes < maxKamikazes)
+                    {
+                        actualGold -= objectToSpawn.GetComponent<Unit>().cost;
+                        actualKamikazes++;
+                        Instantiate(objectToSpawn, spawnPoint.position, Quaternion.identity);
+                    }
+                    break;
+                case "Tank":
+                    if (actualTanks < maxTanks)
+                    {
+                        actualGold -= objectToSpawn.GetComponent<Unit>().cost;
+                        actualTanks++;
+                        Instantiate(objectToSpawn, spawnPoint.position, Quaternion.identity);
+                    }
+                    break;
+                case "Bomber":
+                    if (actualBombers < maxBombers)
+                    {
+                        actualGold -= objectToSpawn.GetComponent<Unit>().cost;
+                        actualBombers++;
+                        Instantiate(objectToSpawn, spawnPoint.position, Quaternion.identity);
+                    }
+                    break;
+                case "Cannon":
+                    if (actualCannons < maxCannons)
+                    {
+                        actualGold -= objectToSpawn.GetComponent<Unit>().cost;
+                        actualCannons++;
+                        Instantiate(objectToSpawn,spawnPoint.position, Quaternion.identity);
+                    }
+                    break;
+                case "General":
+                    if (actualGenerals < maxGenerals)
+                    {
+                        actualGold -= objectToSpawn.GetComponent<Unit>().cost;
+                        actualGenerals++;
+                        Instantiate(objectToSpawn, spawnPoint.position, Quaternion.identity);
+                    }
+                    break;
+                case "Miner":
+                    if (actualMiners < maxMiners)
+                    {
+                        actualGold -= objectToSpawn.GetComponent<Unit>().cost;
+                        actualMiners++;
+                        Instantiate(objectToSpawn, spawnPoint.position, Quaternion.identity);
+                    }
+                    break;
+                default:
+                    break;
+            }
+            actualAgents++;
+        }
+    }
+
+    public GameObject RandomAgent(GameObject[] listOfAgents)
+    {
+        return listOfAgents[Random.Range(0,listOfAgents.Length)];
+    }
+
+    public Transform RandomSpawnPoint(Transform[] listOfSpawns)
+    {
+        return listOfSpawns[Random.Range(0, listOfSpawns.Length)];
+    }
+
+    public IEnumerator MiningGold(float time)
+    {
+        while (manager.actualState == GameState.PLAYING)
+        {
+            yield return new WaitForSeconds(time);
+            actualGold = AddGold(goldPerRate);
+        }
+    }
+
+    private int AddGold(int value)
+    {
+        if (actualGold < maxGold)
+        {
+            actualGold += value;
+        }
+
+        return actualGold;
     }
 
     /*
