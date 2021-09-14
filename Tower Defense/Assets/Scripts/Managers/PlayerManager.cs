@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class PlayerManager : MonoBehaviour
 {
     //GameManager instance = GameManager.Instance;
@@ -50,9 +50,13 @@ public class PlayerManager : MonoBehaviour
     [SerializeField]
     Tower tower;
 
+    public Button melee;
+
+    
     private void Awake()
     {
         tower.actualGold = tower.maxGold;
+        
         //ES MEJOR USAR EL SINGLETON YA QUE SOLO EXISTIRA UN GAME MANAGAER EN TODO EL JUEGO, IGUAL APLICA PARA TODOS LOS MANAGERS QUE TIENES PENSADOS
     }
 
@@ -63,6 +67,12 @@ public class PlayerManager : MonoBehaviour
 
     #region Gold Functions
 
+    public void SpawnAgent(GameObject spawn)
+    {
+        Instantiate(spawn,tower.RandomSpawnPoint(tower.spwanPoints).position, Quaternion.identity);
+    }
+
+    
     //GENERAMOS X CANTIDAD DE ORO CADA X SEGUNDOS
     /*private IEnumerator MiningGold(float time)
     {
