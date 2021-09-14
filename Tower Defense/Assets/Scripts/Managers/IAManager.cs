@@ -2,9 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IAManager : Tower
+public class IAManager : MonoBehaviour
 {
-    //public Tower tower = new Tower();
+    [SerializeField]
+    Tower tower;
+
+    [SerializeField]
+    GameManager manager;
     /*
     [Header("Variables de Recursos", order = 0)]
     public int maxGold;
@@ -63,11 +67,13 @@ public class IAManager : Tower
     //IMPORTANTE AQUI TENDREMOS QUE PROGRAMAR LA MAQUINA DE ESTADOS DE LA IA Y LAS ACCIONES QUE TOMARA
     private void Awake()
     {
-        //manager = FindObjectOfType<GameManager>(); //ES MEJOR USAR EL SINGLETON YA QUE SOLO EXISTIRA UN GAME MANAGAER EN TODO EL JUEGO, IGUAL APLICA PARA TODOS LOS MANAGERS QUE TIENES PENSADOS
+        //tower.actualGold = tower.maxGold;
+        manager = GameManager.Instance;
     }
 
     private void Start()
     {
+        StartCoroutine(tower.MiningGold(tower.miningRate));
         //StartCoroutine(MiningGold(goldTime));
     }
 }

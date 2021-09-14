@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerManager : Tower
+public class PlayerManager : MonoBehaviour
 {
     //GameManager instance = GameManager.Instance;
-    //EN ESTE SCRIPT MANEJAMOS TODO LO QUE PUEDE MANEJAR EL JUGADOR Y TODO LO QUE TENGA QUE VER CON ESTADOS DEL JUGADOR
+   
     /*[Header("Variables de Recursos", order = 0)]
     public int maxGold;
     [HideInInspector]
@@ -46,9 +46,14 @@ public class PlayerManager : Tower
 
     private GameManager manager;
     */
+
+    [SerializeField]
+    Tower tower;
+
     private void Awake()
     {
-        //manager = FindObjectOfType<GameManager>();   //ES MEJOR USAR EL SINGLETON YA QUE SOLO EXISTIRA UN GAME MANAGAER EN TODO EL JUEGO, IGUAL APLICA PARA TODOS LOS MANAGERS QUE TIENES PENSADOS
+        tower.actualGold = tower.maxGold;
+        //ES MEJOR USAR EL SINGLETON YA QUE SOLO EXISTIRA UN GAME MANAGAER EN TODO EL JUEGO, IGUAL APLICA PARA TODOS LOS MANAGERS QUE TIENES PENSADOS
     }
 
     private void Start()

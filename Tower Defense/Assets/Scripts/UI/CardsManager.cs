@@ -11,7 +11,7 @@ public class CardsManager : MonoBehaviour
 
     public void SpawnUnit(GameObject objectToSpawn)
     {
-        player.SpwanAgent(objectToSpawn, player.RandomSpawnPoint(player.spwanPoints));
+        //player.SpwanAgent(objectToSpawn, player.RandomSpawnPoint(player.spwanPoints));
     }
     //[Header("Spawn Points")]
     //[SerializeField]

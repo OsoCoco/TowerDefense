@@ -29,7 +29,7 @@ public class PlayerTower : MonoBehaviour
     private void Update()
     {
         enemies = Physics2D.OverlapCircleAll(transform.position, attackRange, mask);
-        target = ObjectToAttack(enemies);
+        //target = ObjectToAttack(enemies);
 
         if (target != null && Time.time > nextAttack)
         {
@@ -37,7 +37,7 @@ public class PlayerTower : MonoBehaviour
             //Attack(target);
         }
     }
-    Agent ObjectToAttack(Collider2D[] col)
+   /* Agent ObjectToAttack(Collider2D[] col)
     {
         Agent objectToAttack;
 
@@ -95,4 +95,5 @@ public class PlayerTower : MonoBehaviour
 
         Instantiate(temp, transform.position, Quaternion.identity);
     }*/
+   
 }

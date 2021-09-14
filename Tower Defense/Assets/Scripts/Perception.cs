@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Perception : MonoBehaviour
 {
     //EN ESTE SCRIPT DETECTAMOS LAS UNIDADES Y LAS CLASIFICAMOS COMO TARGETS (AQUI SOLO VEMOS LAS UNIDADES PERO NO LAS ATACAMOS)

@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(Tower))]
+[CustomEditor(typeof(IAManager))]
 public class TowerEditor : Editor
 {
+    /*
     private void OnSceneGUI()
     {
-        Tower tower = (Tower)target;
+        IAManager manager = (IAManager)target;
 
         
         Handles.color = Color.yellow;
-        Handles.DrawWireDisc(tower.gameObject.transform.position, tower.transform.forward, tower.attackRange);
+        Handles.DrawWireDisc(manager.gameObject.transform.position, manager.transform.forward, manager.);
     }
+    */
 }

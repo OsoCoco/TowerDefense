@@ -33,11 +33,12 @@ public class SteeringBehaviors
             return Vector2.zero;
         }
 
-        agent.desiredVelocity = (target - (Vector2)agent.agentPos.position).normalized * agent.maxVelocity;
+        agent.desiredVelocity = (target - (Vector2)agent.myPos.position).normalized * agent.maxVelocity;
         Vector2 s;
         s = agent.desiredVelocity - agent.velocity;
         return s;
     }
+    /*
     Vector2 SeekBehavior(Transform target)
     {
         if (agent == null)
@@ -46,11 +47,11 @@ public class SteeringBehaviors
             return Vector2.zero;
         }
 
-        agent.desiredVelocity = ((Vector2)target.position - (Vector2)agent.agentPos.position).normalized * agent.maxVelocity;
+        agent.desiredVelocity = ((Vector2)target.position - (Vector2)agent.myPos.position).normalized * agent.maxVelocity;
         Vector2 s;
         s = agent.desiredVelocity - agent.velocity;
         return s;
-    }
+    }*/
 
     Vector2 FleeBehavior(AgentBase target)
     {
@@ -60,10 +61,11 @@ public class SteeringBehaviors
             return Vector2.zero;
         }
 
-        agent.desiredVelocity = (agent.agentPos.position - target.agentPos.position ).normalized * agent.maxVelocity;
+        agent.desiredVelocity = (agent.myPos.position - target.myPos.position ).normalized * agent.maxVelocity;
         agent.s = agent.desiredVelocity - agent.velocity;
         return agent.s;
     }
+    
     Vector2 FleeBehavior(Vector2 target)
     {
         if (agent == null)
@@ -72,16 +74,16 @@ public class SteeringBehaviors
             return Vector2.zero;
         }
 
-        agent.desiredVelocity = ((Vector2)agent.agentPos.position - target).normalized * agent.maxVelocity;
+        agent.desiredVelocity = ((Vector2)agent.myPos.position - target).normalized * agent.maxVelocity;
         agent.s = agent.desiredVelocity - agent.velocity;
         return agent.s;
     }
-
+    
     Vector2 ArrivalBehavior(float distance, float slowingRadius)
     {
         
         Vector2 sVector;
-        agent.desiredVelocity = agent.target.position - agent.agentPos.position;
+        agent.desiredVelocity = agent.myPos.position - agent.myPos.position;
         distance = agent.desiredVelocity.magnitude;
 
         if (distance < slowingRadius)
@@ -102,7 +104,7 @@ public class SteeringBehaviors
 
         wheel = wheel.normalized * circleDistance;
 
-        wheel += (Vector2)agent.agentPos.position;
+        wheel += (Vector2)agent.myPos.position;
 
         Vector2 randDir = new Vector2(Random.Range(-1.0f,1.1f),Random.Range(-1.0f,1.1f));
 
@@ -111,7 +113,7 @@ public class SteeringBehaviors
         randDir *= circleRadius;
         randDir += wheel;
 
-        agent.desiredVelocity = (randDir - (Vector2)agent.agentPos.position).normalized * agent.maxVelocity;
+        agent.desiredVelocity = (randDir - (Vector2)agent.myPos.position).normalized * agent.maxVelocity;
         s = agent.desiredVelocity - (agent.velocity * 4.0f);
 
         return s;
@@ -119,10 +121,10 @@ public class SteeringBehaviors
 
     Vector2 PursuitBehavior(AgentBase target)
     {
-        var distance = target.agentPos.position - agent.agentPos.position;
+        var distance = target.myPos.position - agent.myPos.position;
         var T = distance.magnitude/agent.maxVelocity;
 
-        var futurePosition = (Vector2)target.agentPos.position + target.velocity * T;
+        var futurePosition = target.myPos.position + target.velocity * T;
 
         return SeekBehavior(futurePosition);
        
@@ -130,19 +132,19 @@ public class SteeringBehaviors
 
     Vector2 EvadeBehavior(AgentBase target)
     {
-        var distance = target.agentPos.position - agent.agentPos.position;
+        var distance = target.myPos.position - agent.myPos.position;
         var T = distance.magnitude / agent.maxVelocity;
 
-        var futurePosition = (Vector2)target.agentPos.position + target.velocity * T;
+        var futurePosition = target.myPos.position + target.velocity * T;
         return FleeBehavior(futurePosition);
        
     }
 
 
-    Vector2 CollisionAvoidanceBehavior(AgentBase agent)
+    Vector3 CollisionAvoidanceBehavior(AgentBase agent)
     {
         float dLength = agent.velocity.magnitude / agent.maxVelocity;
-        Vector2 ahead = (Vector2)agent.agentPos.position + agent.velocity.normalized * dLength;//agent.maxSeeAhead;
+        Vector2 ahead = agent.myPos.position + agent.velocity.normalized * dLength;//agent.maxSeeAhead;
         Vector2 ahead2 = ahead / 0.5f;
 
         Vector2 avoidance = Vector2.zero;
@@ -195,7 +197,7 @@ public class SteeringBehaviors
         {
             Obstacle obs = arrayObstacles[i];
             bool col = LineIntersectsCircle(ahead,ahead2,obs);
-            if (col && (mostThreat == null || Vector2.Distance(agent.agentPos.position, obs.center) < Vector2.Distance(agent.agentPos.position, mostThreat.center)))
+            if (col && (mostThreat == null || Vector2.Distance(agent.myPos.position, obs.center) < Vector2.Distance(agent.myPos.position, mostThreat.center)))
             {
                 mostThreat = obs;
             }
@@ -220,21 +222,22 @@ public class SteeringBehaviors
         //BOOL FUNCTION LineIntersectsCircle RECIBE ahead, ahead2, obstacle
         //CHECA la DISTANCIA entre el CENTRO del obstaculo y ahead O ahead2, si alguno es menor o igual al RADIO OBASTACULO entonces REGRESA verdadero.
     }
-
+    
     #endregion
 
     #region BehavioursCalls
     public void Flee()
     {
         if (agent != null) { }
-            //Steering(FleeBehavior(agent.target));
+            Steering(FleeBehavior(agent.target));
     }
-    public void Seek(Transform target)
+    public void Seek()
     {   
         if(agent!=null)
-            Steering(SeekBehavior(target));
+            Steering(SeekBehavior(agent.targetPos.position));
     }
 
+    
     public void Arrival()
     {
         if (agent != null)
@@ -251,18 +254,19 @@ public class SteeringBehaviors
     public void Pursuit()
     {
         if (agent != null) { }
-            //Steering(PursuitBehavior( agent.target));
+            Steering(PursuitBehavior(agent.target));
 
     }
     public void Evade()
     {
         if (agent != null) { }
-            //Steering(EvadeBehavior(agent.target));
+            Steering(EvadeBehavior(agent.target));
 
     }
+    
     #endregion
 
-    void Steering(Vector2 sVector)
+    void Steering(Vector3 sVector)
     {
         if (agent == null )
         {
@@ -270,19 +274,15 @@ public class SteeringBehaviors
             return;
         }
 
-        Vector2 steering = Vector2.zero;
+        Vector3 steering = Vector2.zero;
         steering += sVector;
         steering += CollisionAvoidanceBehavior(agent);
         steering = Vector2.ClampMagnitude(steering, agent.maxForce);
         steering /= agent.mass;
         agent.velocity = Vector2.ClampMagnitude(agent.velocity + steering, agent.maxSpeed);
         //agent.agentPos.position += (Vector3)agent.velocity;
-        agent.agentPos.Translate(agent.velocity * Time.deltaTime);
+        agent.myPos.Translate(agent.velocity * Time.deltaTime);
     }
-
-    
-
-    
 
     /*
     public void ArrivalSteering(Vector2 sVector)

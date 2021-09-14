@@ -3,17 +3,18 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tower : MonoBehaviour
+[System.Serializable]
+public class Tower
 {
     [Header("Tower Variables", order = 0)]
     public int HP;
     public int attackDamage;
-    public float attackRate;
-    public float attackRange;
-    public float miningRate;
     public int maxGold;
     public int maxAgents;
     public int goldPerRate;
+    public float attackRate;
+    public float attackRange;
+    public float miningRate;
 
     public int actualGold;
     //public float rangePerception;
@@ -41,15 +42,12 @@ public class Tower : MonoBehaviour
     int actualMiners;
     int actualAgents;
 
-    [Header("Spawn Points", order = 3)]
+    [Header("Spawn", order = 3)]
     public Transform[] spwanPoints;
 
-    GameManager manager = GameManager.Instance;
+    //public GameManager manager; //GameManager.Instance;
 
-    private void Awake()
-    {
-        actualGold = maxGold;
-    }
+    
     //string tagName;
 
     /* 
@@ -73,22 +71,24 @@ public class Tower : MonoBehaviour
 
     public void Attack() //SE HARA UNA FUNCION BOOL QUE DETERMINE SI TIENE ALGO QUE ATACAR
     {
-
+        
     }
 
-    public void SpwanAgent(GameObject objectToSpawn,Transform spawnPoint)
+    public GameObject AgentToSpawn(GameObject objectToSpawn)
     {
-        string tagName = objectToSpawn.tag;
-        if(actualAgents < maxAgents || actualGold < maxGold)
+        GameObject temp = objectToSpawn;
+        string tagName = temp.tag;
+        if (actualAgents < maxAgents || actualGold < maxGold)
         {
             switch (tagName)
             {
                 case "Melee":
-                    if(actualMelees < maxMelees)
+                    if (actualMelees < maxMelees)
                     {
                         actualGold -= objectToSpawn.GetComponent<Unit>().cost;
                         actualMelees++;
-                        Instantiate(objectToSpawn,spawnPoint.position,Quaternion.identity);
+                        //Instantiate(objectToSpawn,spawnPoint.position,Quaternion.identity);
+                        //return temp;
                     }
                     break;
                 case "Range":
@@ -96,7 +96,7 @@ public class Tower : MonoBehaviour
                     {
                         actualGold -= objectToSpawn.GetComponent<Unit>().cost;
                         actualRanges++;
-                        Instantiate(objectToSpawn, spawnPoint.position, Quaternion.identity);
+                        //Instantiate(objectToSpawn, spawnPoint.position, Quaternion.identity);
                     }
                     break;
                 case "Kamikaze":
@@ -104,7 +104,7 @@ public class Tower : MonoBehaviour
                     {
                         actualGold -= objectToSpawn.GetComponent<Unit>().cost;
                         actualKamikazes++;
-                        Instantiate(objectToSpawn, spawnPoint.position, Quaternion.identity);
+                        //Instantiate(objectToSpawn, spawnPoint.position, Quaternion.identity);
                     }
                     break;
                 case "Tank":
@@ -112,7 +112,7 @@ public class Tower : MonoBehaviour
                     {
                         actualGold -= objectToSpawn.GetComponent<Unit>().cost;
                         actualTanks++;
-                        Instantiate(objectToSpawn, spawnPoint.position, Quaternion.identity);
+                        //Instantiate(objectToSpawn, spawnPoint.position, Quaternion.identity);
                     }
                     break;
                 case "Bomber":
@@ -120,7 +120,7 @@ public class Tower : MonoBehaviour
                     {
                         actualGold -= objectToSpawn.GetComponent<Unit>().cost;
                         actualBombers++;
-                        Instantiate(objectToSpawn, spawnPoint.position, Quaternion.identity);
+                        //Instantiate(objectToSpawn, spawnPoint.position, Quaternion.identity);
                     }
                     break;
                 case "Cannon":
@@ -128,7 +128,7 @@ public class Tower : MonoBehaviour
                     {
                         actualGold -= objectToSpawn.GetComponent<Unit>().cost;
                         actualCannons++;
-                        Instantiate(objectToSpawn,spawnPoint.position, Quaternion.identity);
+                        //Instantiate(objectToSpawn,spawnPoint.position, Quaternion.identity);
                     }
                     break;
                 case "General":
@@ -136,7 +136,7 @@ public class Tower : MonoBehaviour
                     {
                         actualGold -= objectToSpawn.GetComponent<Unit>().cost;
                         actualGenerals++;
-                        Instantiate(objectToSpawn, spawnPoint.position, Quaternion.identity);
+                        //Instantiate(objectToSpawn, spawnPoint.position, Quaternion.identity);
                     }
                     break;
                 case "Miner":
@@ -144,14 +144,20 @@ public class Tower : MonoBehaviour
                     {
                         actualGold -= objectToSpawn.GetComponent<Unit>().cost;
                         actualMiners++;
-                        Instantiate(objectToSpawn, spawnPoint.position, Quaternion.identity);
+                        //Instantiate(objectToSpawn, spawnPoint.position, Quaternion.identity);
                     }
                     break;
                 default:
+                    temp = null;
                     break;
             }
+
             actualAgents++;
         }
+        else
+            temp = null;
+      
+        return temp;
     }
 
     public GameObject RandomAgent(GameObject[] listOfAgents)
@@ -164,9 +170,10 @@ public class Tower : MonoBehaviour
         return listOfSpawns[Random.Range(0, listOfSpawns.Length)];
     }
 
+    
     public IEnumerator MiningGold(float time)
     {
-        while (manager.actualState == GameState.PLAYING)
+        while (GameManager.Instance.actualState == GameState.PLAYING)
         {
             yield return new WaitForSeconds(time);
             actualGold = AddGold(goldPerRate);
