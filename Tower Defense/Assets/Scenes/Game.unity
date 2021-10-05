@@ -998,14 +998,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abe285c792e51ee45893fb02badc179e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  maxGold: 0
-  maxUnits: 20
-  limitOfUnits: 020000000300000001000000020000000200000001000000030000000200000001000000
-  spawnPoints:
-  - {fileID: 1378901564}
-  - {fileID: 738887126}
-  - {fileID: 1932600268}
+  tower:
+    health: 10
+    maxGold: 5
+    maxUnits: 10
+    limitOfUnits: 050000000400000003000000020000000100000001000000020000000300000003000000
+    actualxUnits: 
+    spawnPoints:
+    - {fileID: 1378901564}
+    - {fileID: 738887126}
+    - {fileID: 1932600268}
+    actualUnits: 0
+    actualGold: 0
+    canSpawn: 0
 --- !u!1 &1035629862
 GameObject:
   m_ObjectHideFlags: 0
