@@ -11,4 +11,6 @@ public class TreeD<T>
     {    
         root = new Node<T>(state);
     }
+
+
 }
