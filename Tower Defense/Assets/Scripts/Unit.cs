@@ -2,58 +2,66 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Type
+
+[System.Serializable]
+public class Unit 
 {
-    BARBARO,
-    ARQUERA,
-    KAMIKAZE,
-    PIPILA,
-    CANON,
-    BOMBARDERO,
-    LADRON,
-    MINERO,
-    GENERAL,
+    [SerializeField]
+    SteeringManager steering;
+
+    public virtual void ChooseAction()
+    {
+        Debug.Log("Funcion que determina que hacer");
+    }
+
+    
 }
 
 [System.Serializable]
-public class Unit:MonoBehaviour
+class SteeringManager
 {
-    [SerializeField] float health;
-    [SerializeField] int cost;
-    [SerializeField] int attackDamage;
-    [SerializeField] float attackSpeed;
-    [SerializeField] float attackRange;
-
-    [SerializeField] List<Unit> priority;
-    [SerializeField] Transform target;
-
-    public Type myType;
-    public float spawnTime;
-    public bool isPlayer = false;
-
-     void Attack()
-    {
-      Debug.Log("Attacking");
-    }
-
-    void Steal()
-    {
-        Debug.Log("Robando");
-    }
+    Vector2 velocity;
+    Vector2 desiredVelocity;
+    Vector2 steering;
     
-     void Death()
+    Transform position;
+    Transform target;
+    
+    [SerializeField]
+    float maxSpeed;
+    [SerializeField]
+    float maxForce;
+    [SerializeField]
+    float maxVelocity;
+    [SerializeField]
+    float mass;
+
+
+    public void doSeek() 
     {
-        Debug.Log("Death");
+        Steering(Seek());
+    }
+    void doFlee() { }
+    void doWander() { }
+
+    Vector2 Seek()
+    {
+        velocity = (target.position - position.position) * maxVelocity;
+        desiredVelocity = (target.position - position.position) * maxVelocity;
+        Vector2 s = desiredVelocity - velocity;
+        return s;
+    }
+    public void Steering(Vector2 force)
+    {
+        steering = Vector2.zero;
+        steering = force;
+        steering = Vector2.ClampMagnitude(steering, maxForce);
+        steering = steering / mass;
+
+        velocity = Vector2.ClampMagnitude(velocity + steering, maxSpeed);
+
+        position.Translate((Vector2)position.position + velocity);
     }
 
-    void GoTo()
-    {
-
-    }
-
-    void ChooseAction()
-    {
-        //Switch case
-
-    }
 }
+
