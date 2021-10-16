@@ -17,10 +17,7 @@ public class Unit :MonoBehaviour
             sp.flipX = false;
     }
 
-    private void Start()
-    {
-        steering.position = this.transform;
-    }
+    
 }
 
 [System.Serializable]
@@ -79,6 +76,11 @@ public class SteeringManager
         Steering(Evade());
     }
 
+    public void doInterpose(Unit a, Unit b)
+    {
+        Steering(Interpose(a,b));
+    }
+
     Vector2 Seek()
     {
       
@@ -111,10 +113,23 @@ public class SteeringManager
 
     Vector2 Arrival()
     {
-        if (target == null)
-            return Vector2.zero;
 
         desiredVelocity = (Vector2)(target.position - position.position);
+
+        float distance = desiredVelocity.magnitude;//- attackRadius;
+
+        if (distance < slowingRadius)
+            desiredVelocity = desiredVelocity.normalized * maxVelocity * (distance / slowingRadius);
+        else
+            desiredVelocity = desiredVelocity.normalized * maxVelocity;
+        Vector2 s = desiredVelocity - velocity;
+        return s;
+    }
+
+    Vector2 Arrival(Vector2 pos)
+    {
+
+        desiredVelocity = (pos - (Vector2)position.position);
 
         float distance = desiredVelocity.magnitude;//- attackRadius;
 
@@ -168,6 +183,21 @@ public class SteeringManager
         Vector2 futurePos = ((Vector2)target.position + target.GetComponent<Unit>().steering.velocity) * t;
 
         return Flee(futurePos);
+    }
+
+    Vector2 Interpose(Unit a,Unit b)
+    {
+        Vector2 midPoint = (Vector2)(a.steering.position.position + b.steering.position.position) / 2.0f;
+
+        float t = Vector2.Distance(position.position,midPoint)/maxSpeed;
+
+        Vector2 aPos = ((Vector2)a.steering.position.position + a.steering.velocity)* t;
+        Vector2 bPos = ((Vector2)b.steering.position.position + b.steering.velocity) * t;
+
+        midPoint = (aPos + bPos) / 2;
+
+        return Arrival(midPoint);
+
     }
 
    

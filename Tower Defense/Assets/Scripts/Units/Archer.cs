@@ -5,7 +5,10 @@ using UnityEngine;
 public class Archer : Unit
 {
     
-    ArcherState myState = ArcherState.START;
+    public ArcherState myState;
+
+    [SerializeField] Unit a;
+    [SerializeField] Unit b;
 
     [SerializeField]
     TreeD<ArcherState> tree;
@@ -29,7 +32,7 @@ public class Archer : Unit
             case ArcherState.START:
                 break;
             case ArcherState.SEEK:
-                //steering.doWander();
+                steering.doInterpose(a,b);
                 Debug.Log("Evade");
                 break;
             case ArcherState.SHOOT:
@@ -42,7 +45,7 @@ public class Archer : Unit
     }
 }
 
-enum ArcherState
+public enum ArcherState
 {
     START,
     SEEK,
