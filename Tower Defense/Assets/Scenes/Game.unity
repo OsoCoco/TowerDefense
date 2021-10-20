@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 218045485}
   - component: {fileID: 218045486}
   - component: {fileID: 218045487}
+  - component: {fileID: 218045488}
   m_Layer: 0
   m_Name: Archer
   m_TagString: Untagged
@@ -162,7 +163,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 218045484}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2e8f2f43ca0710c4ca85cdc62d89952d, type: 3}
   m_Name: 
@@ -170,21 +171,39 @@ MonoBehaviour:
   steering:
     position: {fileID: 0}
     target: {fileID: 0}
-    maxSpeed: 0.025
-    maxForce: 5
-    maxVelocity: 0.025
-    mass: 10
-    slowingRadius: 5
+    maxSpeed: 0
+    maxForce: 0
+    maxVelocity: 0
+    mass: 0
+    slowingRadius: 0
     attackRadius: 0
-    circleDistance: 35.5
-    circleRadius: 31.29
-    angleChange: 5
+    circleDistance: 0
+    circleRadius: 0
+    angleChange: 0
   myState: 0
   a: {fileID: 0}
   b: {fileID: 0}
   tree:
     root:
-      children: []
+      children:
+      - children:
+        - children: []
+          state: 0
+          priority: 0
+        - children: []
+          state: 0
+          priority: 0
+        - children: []
+          state: 0
+          priority: 0
+        state: 1
+        priority: 0
+      - children: []
+        state: 2
+        priority: 0
+      - children: []
+        state: 2
+        priority: 0
       state: 0
       priority: 0
 --- !u!212 &218045487
@@ -238,6 +257,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &218045488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 218045484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f12a1f19f9f0bbe4bbe352d94550cb23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myState: 0
+  actualSeek: 0
+  actualFlee: 0
+  actualMine: 0
+  hp: 10
 --- !u!1 &1258322477
 GameObject:
   m_ObjectHideFlags: 0
@@ -249,6 +285,7 @@ GameObject:
   - component: {fileID: 1258322480}
   - component: {fileID: 1258322479}
   - component: {fileID: 1258322478}
+  - component: {fileID: 1258322481}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -289,7 +326,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 52.4
   orthographic: 1
   orthographic size: 6
   m_Depth: -1
@@ -321,3 +358,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1258322481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1258322477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab88581924ce710409fcfe5d33c90bf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panSpeed: 10
+  panBorderThickness: 10
+  panLimit: {x: 15, y: 15}
+  scrollSpeed: 20
+  minScroll: 1
+  maxScroll: 6
