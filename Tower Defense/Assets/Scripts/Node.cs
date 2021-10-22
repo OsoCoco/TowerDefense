@@ -5,13 +5,13 @@ using UnityEngine;
 public class Node <T>
 {
     [SerializeField]
-    List<Node<T>> children;
+    public List<Node<T>> children;
     
     [SerializeField]
-     T state;
+     public T state;
 
     [SerializeField]
-    int priority;
+    public int priority;
     public Node(T s)
     {
         state = s;

@@ -25,6 +25,7 @@ public class TestSeek : MonoBehaviour
         seekCost = new Stack<int>();
         fleeCost = new Stack<int>();
         mineCost = new Stack<int>();
+        StartCoroutine(DFS());
     }
 
     private void Update()
@@ -36,33 +37,60 @@ public class TestSeek : MonoBehaviour
         switch(myState)
         {
             case TestState.START:
-                //DO SEEK;
+                myState = TestState.SEEK;
                 break;
 
             case TestState.SEEK:
-                //DO SEEK
+                if (actualSeek > actualMine && actualMine < actualFlee)
+                {
+                    myState = TestState.MINE;
+                }
+                else if(actualSeek < actualFlee && actualMine > actualFlee)
+                {
+                    myState = TestState.FLEE;
+                }
                 
                 break;
 
             case TestState.FLEE:
-                //DO FLEE;
+                if (actualFlee > actualSeek && actualSeek < actualMine)
+                {
+                    myState = TestState.MINE;
+                }
+                else if (actualFlee > actualMine && actualMine < actualSeek)
+                {
+                    myState = TestState.FLEE;
+                }
+
                 break;
 
             case TestState.MINE:
-                //DO MINE
+                if (actualMine > actualSeek && actualSeek < actualFlee)
+                {
+                    myState = TestState.FLEE;
+                }
+                else if (actualMine > actualSeek && actualSeek < actualFlee)
+                {
+                    myState = TestState.SEEK;
+                }
                 break;
         }
     }
 
-    private void DFS()
+    private IEnumerator DFS()
     {
+        yield return new WaitForEndOfFrame();
         PoPStack(seekCost, actualSeek);
         PoPStack(fleeCost, actualFlee);
         PoPStack(mineCost, actualMine);
 
-        
+        DoState();
+
+        StartCoroutine(DFS());
 
     }
+
+
 
     private void PoPStack(Stack<int> stack, int parameter)
     {

@@ -5,7 +5,7 @@ using UnityEngine;
 public class TreeD<T>
 {
     [SerializeField]
-    Node<T> root;
+    public Node<T> root;
 
     public TreeD (T state)
     {    
