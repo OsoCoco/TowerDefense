@@ -4,23 +4,38 @@ using UnityEngine;
 
 public class Testing : MonoBehaviour
 {
-    Grid grid;
+
+    PathFinding pf;
     private void Start()
     {
-        grid = new Grid(4, 4, 1f,new Vector3(0,0));
+         pf = new PathFinding(5, 5);
+        //grid = new Grid(4, 4, 1f,new Vector3(0,0));
     }
 
     private void Update()
     {
+        
         if(Input.GetMouseButtonDown(0))
         {
-            grid.SetValue(GetMouseWorldPosition(),56);
-        }
+            Debug.Log("Click");
 
-         if(Input.GetMouseButtonDown(1))
-        {
-            Debug.Log( grid.GetValue(GetMouseWorldPosition()));
+
+            Vector3 mousePos = GetMouseWorldPosition();
+            pf.GetGrid().GetXY(mousePos,out int x,out int y);
+            
+            List<PathNode> p = pf.FindPath(0, 0, x, y);
+
+            if(p != null)
+            {
+                for (int i = 0; i < p.Count-1; i++)
+                {
+
+                    Debug.DrawLine(new Vector3(p[i].x, p[i].y) * 10f + Vector3.one * 5f, new Vector3(p[i].x, p[i].y) * 10f + Vector3.one * 5f,Color.green);
+                }
+                
+            }
         }
+        
     }
 
     Vector3 GetMouseWorldPosition()
