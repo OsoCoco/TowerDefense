@@ -7,13 +7,25 @@ public class CameraController : MonoBehaviour
     public float panSpeed = 20f;
     public float panBorderThickness = 10f;
     public Vector2 panLimit;
+    private Vector3 startPos;
 
     public float scrollSpeed = 2f;
     public float minScroll = 20f;
     public float maxScroll = 120f;
 
+    private void Start()
+    {
+        startPos = transform.position;
+    }
+
     private void Update()
     {
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            transform.position = startPos;
+        }
+
         Vector3 pos = transform.position;
 
         if (Input.mousePosition.y >= Screen.height - panBorderThickness || Input.GetKey(KeyCode.W))
