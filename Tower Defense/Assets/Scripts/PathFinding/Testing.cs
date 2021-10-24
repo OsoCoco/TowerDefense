@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class Testing : MonoBehaviour
 {
-
+    [SerializeField]
     PathFinding pf;
+
+    [SerializeField]
+    List<PathNode> path;
     private void Start()
     {
          pf = new PathFinding(5, 5);
+        path = new List<PathNode>();
         //grid = new Grid(4, 4, 1f,new Vector3(0,0));
     }
 
@@ -23,14 +27,14 @@ public class Testing : MonoBehaviour
             Vector3 mousePos = GetMouseWorldPosition();
             pf.GetGrid().GetXY(mousePos,out int x,out int y);
             
-            List<PathNode> p = pf.FindPath(0, 0, x, y);
+            path = pf.FindPath(0, 0, x, y);
 
-            if(p != null)
+            if(path != null)
             {
-                for (int i = 0; i < p.Count-1; i++)
+                for (int i = 0; i < path.Count-1; i++)
                 {
 
-                    Debug.DrawLine(new Vector3(p[i].x, p[i].y) * 10f + Vector3.one * 5f, new Vector3(p[i].x, p[i].y) * 10f + Vector3.one * 5f,Color.green);
+                    Debug.DrawLine(new Vector3(path[i].x, path[i].y) * 10f + Vector3.one * 5f, new Vector3(path[i + 1].x, path[i + 1].y) * 10f + Vector3.one * 5f, Color.green);
                 }
                 
             }

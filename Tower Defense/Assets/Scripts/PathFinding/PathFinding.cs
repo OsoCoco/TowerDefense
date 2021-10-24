@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class PathFinding 
 {
     const int MOVE_STRAIGHT_COST = 10;
@@ -9,7 +10,10 @@ public class PathFinding
 
     Grid<PathNode> grid;
 
+    [SerializeField]
     List<PathNode> openList;
+    
+    [SerializeField]
     List<PathNode> closedList;
     public PathFinding(int w,int h)
     {
@@ -56,6 +60,7 @@ public class PathFinding
             foreach(PathNode n in GetNeighbourList(currentNode))
             {
                 if (closedList.Contains(n)) continue;
+                if (!n.isWalkable) { closedList.Add(n); continue; }
 
                 int tentativeGCost = currentNode.gCost + CalculateDistance(currentNode, n);
 
