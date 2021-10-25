@@ -8,20 +8,28 @@ public class Node <T>
     public List<Node<T>> children;
     
     [SerializeField]
-     public T state;
+     public T data;
 
     [SerializeField]
-    public int priority;
+    public int cost;
     public Node(T s)
     {
-        state = s;
+        data = s;
         children = new List<Node<T>>();
-        priority = 0;
+        cost = 0;
     }
 
-    public void addChild(T childSate)
+    public void AddChild(T childSate,int prio)
     {
-        children.Add(new Node <T>(childSate));
+        Node<T> node = new Node<T>(childSate);
+        node.cost = prio+1;
+        children.Add(node);
+        
+    }
+
+    public T GetData()
+    {
+        return data;
     }
 
     public List<Node<T>> getChildren ()

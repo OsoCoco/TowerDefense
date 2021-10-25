@@ -4,11 +4,11 @@ using UnityEngine;
 
 
 [System.Serializable]
-public class Unit :MonoBehaviour
+public class Unit:MonoBehaviour
 {
     public SteeringManager steering;
 
-
+   
     public void FlipX(SpriteRenderer sp)
     {
         if (steering.position.position.x > steering.target.position.x)
