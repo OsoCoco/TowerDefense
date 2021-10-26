@@ -8,6 +8,10 @@ public class Tower : MonoBehaviour
     public int damage;
     public int speedAttack;
     public int HP;
+    public int gold;
+    public int maxGold;
+
+
     [Header("Others")]
     public List<GameObject> enemies;
 

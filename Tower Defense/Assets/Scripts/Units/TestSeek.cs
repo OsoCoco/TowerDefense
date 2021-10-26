@@ -13,6 +13,11 @@ public enum TestState
 
 public class TestSeek : Unit
 {
+
+    [SerializeField] Tower myTower;
+    [SerializeField] float mineRate = 1.0f;
+    [SerializeField] int goldPerRate = 1;
+    float nextMine;
     public TestState actualState;
     public LayerMask mask;
 
@@ -41,7 +46,7 @@ public class TestSeek : Unit
 
     private void Update()
     {
-        //ChooseState();
+        ChooseState();
         Perception();
     }
     private void DoState()
@@ -115,16 +120,16 @@ public class TestSeek : Unit
                 actualState = TestState.SEEK; //COSTO DE SEEK SEA MENOR
                 break;
             case TestState.SEEK: //COSTO DE SEEK SEA MENOR
-                steering.doSeek();
+                Seek();
                 //actualState = TestState.MINE;
                 break;
             case TestState.FLEE://COSTO DE FLEE SEA MENOR
-                steering.doFlee();
-                actualState = TestState.SEEK;
+                Flee();
+                
                 break;
             case TestState.MINE://COSTO DE MINE SEA MENOR
                 Mine();
-                actualState = TestState.SEEK;
+                //actualState = TestState.SEEK;
                 break;
             default:
                 break;
@@ -133,29 +138,104 @@ public class TestSeek : Unit
 
     void Mine()
     {
+
+
+        if(myTower.gold <= myTower.maxGold)
+        {
+            if(Time.time > nextMine)
+            {
+                Debug.Log("mining");
+                nextMine = Time.time + mineRate;
+                myTower.gold += goldPerRate;
+            }
+
+        }
+
         Debug.Log("Minando");
         
         if(enemies.Length > 0)
         {
             Debug.Log("Enemigos");
-            //steering.target = enemies[0].transform;
-            actualState = TestState.FLEE;
+
+            ChangeNodeCost(TestState.MINE, 10);
+            ChangeNodeCost(TestState.START, 10);
+            ChangeNodeCost(TestState.SEEK, 10);
+            ChangeNodeCost(TestState.FLEE, 0);
         }
         //MINAR NORMAL
         //SI TENGO ENEMIGOS VEO SI ES MAS DE UNO SI NO ATACO, SI ES MAS CORRO
 
 
         //CHOSELOWESTCOSTNODE
-        
+
+        ChoseLowestCostNode();
         
     }
 
+
+    void Seek()
+    {
+        if (enemies.Length == 0)
+        {
+            steering.target = actualTarget;
+            //actualState = TestState.SEEK;
+            if (Vector2.Distance(steering.position.position, steering.target.position) > 1f)
+            {
+                steering.doSeek();
+            }
+            else
+            {
+                ChangeNodeCost(TestState.MINE, 0);
+                ChangeNodeCost(TestState.START, 10);
+                ChangeNodeCost(TestState.SEEK, 10);
+                ChangeNodeCost(TestState.FLEE, 10);
+            }
+        }
+        else
+        {
+            steering.target = enemies[0].transform;
+            ChangeNodeCost(TestState.MINE, 10);
+            ChangeNodeCost(TestState.START, 10);
+            ChangeNodeCost(TestState.SEEK, 10);
+            ChangeNodeCost(TestState.FLEE, 0);
+        }
+
+        ChoseLowestCostNode();
+
+    }
+
+    void Flee()
+    {
+        if (enemies.Length > 0)
+        {
+            steering.target = enemies[0].transform;
+
+            if (Vector2.Distance(steering.position.position, steering.target.position) < 2f)
+            {
+                steering.doFlee();
+            }
+
+        }
+        else
+        {
+            steering.target = actualTarget;
+
+            ChangeNodeCost(TestState.MINE, 10);
+            ChangeNodeCost(TestState.START, 10);
+            ChangeNodeCost(TestState.SEEK, 0);
+            ChangeNodeCost(TestState.FLEE, 10);
+        }
+
+
+        ChoseLowestCostNode();
+    }
     //SEEK 
     //FLEE
     //ATTACK
 
-    void ChangeNodeCost(Node<TestState> node,int value)
+    void ChangeNodeCost(TestState state,int value)
     {
+        Node<TestState> node = myTree.BFS(state);
         node.cost = value;
     }
 
@@ -188,6 +268,8 @@ public class TestSeek : Unit
 
         enemies = Physics2D.OverlapCircleAll(transform.position,3.0f,mask);
         //Transform actualTarget;
+
+        /*
         switch (actualState)
         {
             case TestState.START:
@@ -234,7 +316,7 @@ public class TestSeek : Unit
                 break;
             default:
                 break;
-        }
+        }*/
     }
 
     
