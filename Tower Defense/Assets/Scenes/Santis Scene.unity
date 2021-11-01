@@ -986,6 +986,7 @@ GameObject:
   - component: {fileID: 765946784}
   - component: {fileID: 765946783}
   - component: {fileID: 765946785}
+  - component: {fileID: 765946786}
   m_Layer: 7
   m_Name: Enemie
   m_TagString: Untagged
@@ -1074,6 +1075,30 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &765946786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765946782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ed7686855d93cd449444ea4a23f14c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  steering:
+    position: {fileID: 765946784}
+    target: {fileID: 1252928096}
+    maxSpeed: 0.1
+    maxForce: 1
+    maxVelocity: 0.1
+    mass: 1
+    slowingRadius: 1
+    attackRadius: 1
+    circleDistance: 1
+    circleRadius: 1
+    angleChange: 1
 --- !u!1 &961334156
 GameObject:
   m_ObjectHideFlags: 0
@@ -1230,34 +1255,16 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1252928096}
-  - component: {fileID: 1252928095}
   - component: {fileID: 1252928097}
   - component: {fileID: 1252928098}
   - component: {fileID: 1252928099}
   m_Layer: 0
-  m_Name: Test
+  m_Name: Miner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1252928095
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1252928094}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 735af5d0aba7cc94584b609779108c3d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myTree:
-    root:
-      children: []
-      data: 
-      cost: 0
 --- !u!4 &1252928096
 Transform:
   m_ObjectHideFlags: 0
@@ -1287,7 +1294,7 @@ MonoBehaviour:
   steering:
     position: {fileID: 1252928096}
     target: {fileID: 567339013}
-    maxSpeed: 1
+    maxSpeed: 0.1
     maxForce: 4
     maxVelocity: 0.5
     mass: 2
@@ -1300,9 +1307,12 @@ MonoBehaviour:
   mineRate: 1
   goldPerRate: 1
   actualState: 0
-  mask:
+  enemieMask:
     serializedVersion: 2
     m_Bits: 128
+  powerUpMask:
+    serializedVersion: 2
+    m_Bits: 0
   myTree:
     root:
       children:
@@ -1318,6 +1328,7 @@ MonoBehaviour:
       data: 0
       cost: 0
   enemies: []
+  powerUps: []
 --- !u!212 &1252928098
 SpriteRenderer:
   m_ObjectHideFlags: 0

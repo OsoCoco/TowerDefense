@@ -38,11 +38,11 @@ public class TreeD<T>
 
     public Node<T> DFS(T data)
     {
-        Stack<Node<T>> myQueue = new Stack<Node<T>>();
-        myQueue.Push(root);
-        while (myQueue.Count != 0)
+        Stack<Node<T>> myStack = new Stack<Node<T>>();
+        myStack.Push(root);
+        while (myStack.Count != 0)
         {
-            Node<T> temp = myQueue.Pop();
+            Node<T> temp = myStack.Pop();
             T dataTemp = temp.GetData();
             if (Compare<T>(dataTemp, data))
             {
@@ -52,7 +52,7 @@ public class TreeD<T>
             {
                 foreach (Node<T> childTemp in temp.getChildren())
                 {
-                    myQueue.Push(childTemp);
+                    myStack.Push(childTemp);
                 }
             }
         }

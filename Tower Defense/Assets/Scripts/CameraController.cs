@@ -53,7 +53,7 @@ public class CameraController : MonoBehaviour
         pos.y = Mathf.Clamp(pos.y, -panLimit.y, panLimit.y);
         pos.z = -10;
 
-        transform.position = pos;
+        transform.Translate(pos);
 
     }
 }

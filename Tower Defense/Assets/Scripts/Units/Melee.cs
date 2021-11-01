@@ -27,13 +27,13 @@ public class Melee : Unit
             case MeleeState.START:
                 break;
             case MeleeState.SEEK:
-                steering.doPursuit();
+               // steering.doPursuit();
                 Debug.Log("Seek");
                 break;
             case MeleeState.ATTACK:
                 break;
             case MeleeState.WANDER:
-                steering.doWander();
+                //steering.doWander();
                 break;
             case MeleeState.DIE:
                 break;
