@@ -1,9 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+
 
 public class Melee : Unit
 {
+
+    [SerializeField] Tower myTower;
+    [SerializeField] float attackRate = 1.0f;
+    float nextAttack;
+  
+    public LayerMask enemieMask;
+    public LayerMask powerUpMask;
+
+    public TreeD<MeleeState> myTree;
+
+    Transform actualTarget;
+    
+    
     MeleeState myState;
     // Start is called before the first frame update
     //myState = MeleeState.SEEK;
@@ -32,23 +47,46 @@ public class Melee : Unit
                 break;
             case MeleeState.ATTACK:
                 break;
-            case MeleeState.WANDER:
-                //steering.doWander();
-                break;
-            case MeleeState.DIE:
-                break;
             default:
                 break;
         }
     }
 
+
+    void ChoseLowestCostNode()
+    {
+        Node<MeleeState> nodoDes;
+
+        List<int> costList = new List<int>();
+
+        foreach (Node<MeleeState> n in myTree.root.children)
+        {
+            costList.Add(n.cost);
+        }
+
+
+        int minCost = costList.Min();
+        int index = costList.IndexOf(minCost);
+        nodoDes = myTree.root.children[index];
+
+
+        myState = myTree.BFS(nodoDes.data).data;
+
+        Debug.Log(myTree.BFS(nodoDes.data).ToString());
+        Debug.Log(myTree.BFS(nodoDes.data).cost);
+        
+    }
+
+    void ChangeNodeCost(MeleeState state, int value)
+    {
+        Node<MeleeState> node = myTree.BFS(state);
+        node.cost = value;
+    }
 }
 
 public enum MeleeState
 {
     START,
-    WANDER,
     SEEK,
     ATTACK,
-    DIE,
 }

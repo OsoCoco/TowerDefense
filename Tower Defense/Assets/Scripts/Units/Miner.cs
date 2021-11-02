@@ -223,11 +223,5 @@ public class Miner : Unit
     }
     
 
-    private void PoPStack(Stack<int> stack, int parameter)
-    {
-        for (int i = 0; i <= stack.Count; i++)
-        {
-            parameter += stack.Pop();
-        }
-    }
+   
 }
