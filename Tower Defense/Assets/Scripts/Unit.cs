@@ -8,6 +8,13 @@ public class Unit:MonoBehaviour
 {
     public SteeringManager steering;
 
+    
+    public float health;
+    
+    [SerializeField]
+    protected float maxHealth;
+   
+
    
     public void FlipX(SpriteRenderer sp)
     {

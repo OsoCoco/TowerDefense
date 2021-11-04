@@ -133,7 +133,9 @@ GameObject:
   m_Component:
   - component: {fileID: 567339013}
   - component: {fileID: 567339012}
-  m_Layer: 0
+  - component: {fileID: 567339014}
+  - component: {fileID: 567339015}
+  m_Layer: 7
   m_Name: Mina
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -203,8 +205,50 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &567339014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567339011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4940b8cded413344a99909fe3ddaf3a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  steering:
+    position: {fileID: 0}
+    target: {fileID: 0}
+    maxSpeed: 0
+    maxForce: 0
+    maxVelocity: 0
+    mass: 0
+    slowingRadius: 0
+    attackRadius: 0
+    circleDistance: 0
+    circleRadius: 0
+    angleChange: 0
+  health: 20
+  maxHealth: 20
+--- !u!58 &567339015
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567339011}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &642608032
 GameObject:
   m_ObjectHideFlags: 0
@@ -1053,11 +1097,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 765946782}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.85, y: 5.61, z: 0}
+  m_LocalPosition: {x: 1.8, y: 5.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &765946785
 CircleCollider2D:
@@ -1084,21 +1128,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 765946782}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ed7686855d93cd449444ea4a23f14c4, type: 3}
+  m_Script: {fileID: 11500000, guid: 4940b8cded413344a99909fe3ddaf3a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   steering:
-    position: {fileID: 765946784}
+    position: {fileID: 0}
     target: {fileID: 1252928096}
-    maxSpeed: 0.1
-    maxForce: 1
-    maxVelocity: 0.1
-    mass: 1
-    slowingRadius: 1
-    attackRadius: 1
-    circleDistance: 1
-    circleRadius: 1
-    angleChange: 1
+    maxSpeed: 0
+    maxForce: 0
+    maxVelocity: 0
+    mass: 0
+    slowingRadius: 0
+    attackRadius: 0
+    circleDistance: 0
+    circleRadius: 0
+    angleChange: 0
+  health: 20
+  maxHealth: 20
 --- !u!1 &961334156
 GameObject:
   m_ObjectHideFlags: 0
@@ -1255,9 +1301,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1252928096}
-  - component: {fileID: 1252928097}
   - component: {fileID: 1252928098}
   - component: {fileID: 1252928099}
+  - component: {fileID: 1252928095}
   m_Layer: 0
   m_Name: Miner
   m_TagString: Untagged
@@ -1265,21 +1311,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1252928096
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1252928094}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8, y: 0.16606319, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1252928097
+--- !u!114 &1252928095
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1288,25 +1320,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 1252928094}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f12a1f19f9f0bbe4bbe352d94550cb23, type: 3}
+  m_Script: {fileID: 11500000, guid: 7ed7686855d93cd449444ea4a23f14c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   steering:
-    position: {fileID: 1252928096}
+    position: {fileID: 0}
     target: {fileID: 567339013}
-    maxSpeed: 0.1
-    maxForce: 4
-    maxVelocity: 0.5
-    mass: 2
-    slowingRadius: 2
-    attackRadius: 2
-    circleDistance: 2
-    circleRadius: 2
-    angleChange: 2
-  myTower: {fileID: 1796727697}
-  mineRate: 1
-  goldPerRate: 1
-  actualState: 0
+    maxSpeed: 0.05
+    maxForce: 0.4
+    maxVelocity: 0.05
+    mass: 0.4
+    slowingRadius: 0.4
+    attackRadius: 0.4
+    circleDistance: 0.4
+    circleRadius: 0.4
+    angleChange: 0.4
+  health: 20
+  maxHealth: 50
+  myTower: {fileID: 0}
+  attackRate: 2
   enemieMask:
     serializedVersion: 2
     m_Bits: 128
@@ -1327,8 +1359,23 @@ MonoBehaviour:
         cost: 0
       data: 0
       cost: 0
+  myState: 0
   enemies: []
   powerUps: []
+--- !u!4 &1252928096
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1252928094}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 8, y: 0.16606319, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1252928098
 SpriteRenderer:
   m_ObjectHideFlags: 0
