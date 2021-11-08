@@ -101,8 +101,7 @@ public class Melee : Unit
 
         myState = myTree.BFS(nodoDes.data).data;
 
-        Debug.Log(myTree.BFS(nodoDes.data).ToString());
-        Debug.Log(myTree.BFS(nodoDes.data).cost);
+       
         
     }
 
@@ -151,7 +150,7 @@ public class Melee : Unit
         {
             unitToAttack = steering.target.GetComponent<Unit>();
 
-            if(unitToAttack != null)
+            if(unitToAttack != null || unitToAttack.health > 0)
             {
                 if(Time.time > nextAttack)
                 {

@@ -13,9 +13,13 @@ public class Unit:MonoBehaviour
     
     [SerializeField]
     protected float maxHealth;
-   
 
-   
+
+
+    private void Start()
+    {
+        health = maxHealth;
+    }
     public void FlipX(SpriteRenderer sp)
     {
         if (steering.position.position.x > steering.target.position.x)
