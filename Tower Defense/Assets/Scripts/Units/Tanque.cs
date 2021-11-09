@@ -23,12 +23,12 @@ public class Tanque : Unit
     public LayerMask enemieMask;
     public LayerMask powerUpMask;
 
-    public TreeD<MeleeState> myTree;
+    public TreeD<TanqueState> myTree;
 
     Transform actualTarget;
     
     [SerializeField]
-    MeleeState myState;
+    TanqueState myState;
 
     public Collider2D[] enemies;
     public Collider2D[] powerUps;
@@ -46,7 +46,7 @@ public class Tanque : Unit
         health = maxHealth;
         actualTarget = steering.target;
         steering.position = this.transform;
-        myState = MeleeState.START;
+        myState = TanqueState.START;
 
     }
     private void Update()
@@ -63,17 +63,17 @@ public class Tanque : Unit
     {
         switch (myState)
         {
-            case MeleeState.START:
-                myState = MeleeState.SEEK;
+            case TanqueState.START:
+                myState = TanqueState.SEEK;
                 break;
-            case MeleeState.SEEK:
+            case TanqueState.SEEK:
 
                 DoSeek();
                 break;
-            case MeleeState.ATTACK:
+            case TanqueState.ATTACK:
                 DoAttack();
                 break;
-            case MeleeState.FLEE:
+            case TanqueState.FLEE:
                 DoFlee();
                 break;
             default:
@@ -84,11 +84,11 @@ public class Tanque : Unit
 
     void ChoseLowestCostNode()
     {
-        Node<MeleeState> nodoDes;
+        Node<TanqueState> nodoDes;
 
         List<int> costList = new List<int>();
 
-        foreach (Node<MeleeState> n in myTree.root.children)
+        foreach (Node<TanqueState> n in myTree.root.children)
         {
             costList.Add(n.cost);
         }
@@ -105,9 +105,9 @@ public class Tanque : Unit
         
     }
 
-    void ChangeNodeCost(MeleeState state, int value)
+    void ChangeNodeCost(TanqueState state, int value)
     {
-        Node<MeleeState> node = myTree.BFS(state);
+        Node<TanqueState> node = myTree.BFS(state);
         node.cost = value;
     }
 
@@ -160,26 +160,26 @@ public class Tanque : Unit
             }
             else
             {
-                ChangeNodeCost(MeleeState.ATTACK, 10);
-                ChangeNodeCost(MeleeState.START, 10);
-                ChangeNodeCost(MeleeState.SEEK, 0);
-                ChangeNodeCost(MeleeState.FLEE, 10);
+                ChangeNodeCost(TanqueState.ATTACK, 10);
+                ChangeNodeCost(TanqueState.START, 10);
+                ChangeNodeCost(TanqueState.SEEK, 0);
+                ChangeNodeCost(TanqueState.FLEE, 10);
             }
         }
         else
         {
-            ChangeNodeCost(MeleeState.ATTACK, 10);
-            ChangeNodeCost(MeleeState.START, 10);
-            ChangeNodeCost(MeleeState.SEEK, 0);
-            ChangeNodeCost(MeleeState.FLEE, 10);
+            ChangeNodeCost(TanqueState.ATTACK, 10);
+            ChangeNodeCost(TanqueState.START, 10);
+            ChangeNodeCost(TanqueState.SEEK, 0);
+            ChangeNodeCost(TanqueState.FLEE, 10);
         }
 
         if(enemies.Length > 1)
         {
-            ChangeNodeCost(MeleeState.ATTACK, 10);
-            ChangeNodeCost(MeleeState.START, 10);
-            ChangeNodeCost(MeleeState.SEEK, 10);
-            ChangeNodeCost(MeleeState.FLEE, 0);
+            ChangeNodeCost(TanqueState.ATTACK, 10);
+            ChangeNodeCost(TanqueState.START, 10);
+            ChangeNodeCost(TanqueState.SEEK, 10);
+            ChangeNodeCost(TanqueState.FLEE, 0);
         }
 
         ChoseLowestCostNode();
@@ -192,10 +192,10 @@ public class Tanque : Unit
         }
         else
         {
-            ChangeNodeCost(MeleeState.ATTACK, 10);
-            ChangeNodeCost(MeleeState.START, 10);
-            ChangeNodeCost(MeleeState.SEEK, 0);
-            ChangeNodeCost(MeleeState.FLEE, 10);
+            ChangeNodeCost(TanqueState.ATTACK, 10);
+            ChangeNodeCost(TanqueState.START, 10);
+            ChangeNodeCost(TanqueState.SEEK, 0);
+            ChangeNodeCost(TanqueState.FLEE, 10);
         }
 
         ChoseLowestCostNode();
@@ -214,10 +214,10 @@ public class Tanque : Unit
 
         if(enemies.Length > 1)
         {
-            ChangeNodeCost(MeleeState.ATTACK, 10);
-            ChangeNodeCost(MeleeState.START, 10);
-            ChangeNodeCost(MeleeState.SEEK, 10);
-            ChangeNodeCost(MeleeState.FLEE, 0);
+            ChangeNodeCost(TanqueState.ATTACK, 10);
+            ChangeNodeCost(TanqueState.START, 10);
+            ChangeNodeCost(TanqueState.SEEK, 10);
+            ChangeNodeCost(TanqueState.FLEE, 0);
         }
 
         if(Vector2.Distance(transform.position,steering.target.position) > 1f)
@@ -226,10 +226,10 @@ public class Tanque : Unit
         }
         else
         {
-            ChangeNodeCost(MeleeState.ATTACK, 0);
-            ChangeNodeCost(MeleeState.START, 10);
-            ChangeNodeCost(MeleeState.SEEK, 10);
-            ChangeNodeCost(MeleeState.FLEE, 10);
+            ChangeNodeCost(TanqueState.ATTACK, 0);
+            ChangeNodeCost(TanqueState.START, 10);
+            ChangeNodeCost(TanqueState.SEEK, 10);
+            ChangeNodeCost(TanqueState.FLEE, 10);
         }
 
         ChoseLowestCostNode();
